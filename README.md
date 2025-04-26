@@ -18,7 +18,7 @@ Built with Flask and HTML5, it provides a clean foundation for creating a scalab
 
 To set up and run this project locally:
 
-Clone the repository.
+Clone the repository (https://github.com/Paramkotadia/Smart-Library.git) .
 
 Set up a Python virtual environment (recommended).
 
