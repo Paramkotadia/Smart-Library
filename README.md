@@ -20,11 +20,18 @@ To set up and run this project locally:
 
 Clone the repository (https://github.com/Paramkotadia/Smart-Library.git) .
 
+step 1:
+
 Set up a Python virtual environment (recommended).
+
+step 2:
 
 Install the required packages (pip install -r requirements.txt).
 
-Run the Flask app and visit http://127.0.0.1:5000/ on your browser!
+step 3:
+
+Run the application:
+python app.py
 
 (Detailed setup steps are super simple and can be figured out easily!)
 
