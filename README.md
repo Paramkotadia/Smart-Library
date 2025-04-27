@@ -116,7 +116,7 @@ Shubham Raiyani - ShubhamR05
 Have questions, suggestions, or want to contribute? Feel free to reach out!
 We’d love to hear from you and collaborate on making this project even better.
 
-“Code is like humor. When you have to explain it, it’s bad.” – Cory House  
+  
 
 __📇 Connect with us on LinkedIn:__
 
@@ -124,9 +124,9 @@ Yash Jha: [LinkedIn Profile](https://www.linkedin.com/in/yash-jha-101870336?utm_
 
 Param Kotadia: [LinkedIn Profile](https://www.linkedin.com/in/param-kotadia-95641232b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app )
 
-Shubham Raiyani : [LinkedIn Profile](www.linkedin.com/in/shubham-raiyani-162314335)
+Shubham Raiyani : [LinkedIn Profile](https://www.linkedin.com/in/shubham-raiyani-162314335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app )
 
-
+## “Code is like humor. When you have to explain it, it’s bad.” – Cory House
 
 
 <b>Thanks for checking out Smart-Library — making library management smarter, faster, and simpler! 🚀
