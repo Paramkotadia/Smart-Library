@@ -52,7 +52,7 @@ List the files to get an overview of the project structure:
 
 ls
 
-You will typically find Python scripts (e.g., train.py, attendance.py, main.py), folders like dataset for face images, a model folder for trained model files, and a requirements.txt file containing the dependencies.
+You will typically find Python scripts (e.g., app.py, smartlibrary.py, main.py), folders like yoloV5, app, static, templates and a requirements.txt file containing the dependencies.
 
 __Step 6: Install Required Dependencies:__
 
@@ -65,7 +65,6 @@ If the requirements.txt file is not available, you can manually install the nece
 
 pip install opencv-python
 
-pip install face-recognition
 
 pip install numpy
 
