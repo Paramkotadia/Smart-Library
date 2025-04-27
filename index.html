@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Library AI - Book Detection System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            font-size: 2.8rem;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .camera-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .camera-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .camera-placeholder::before {
+            content: "";
+            position: absolute;
+            width: 80%;
+            height: 2px;
+            background: rgba(0,0,0,0.1);
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+        
+        .camera-placeholder::after {
+            content: "Live Camera Feed";
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .control-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title i {
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a56d4;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #e5177b;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background-color: #e9ecef;
+            color: #adb5bd;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .result-container {
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .result-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .result-text {
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-location {
+            font-size: 0.9rem;
+            color: #495057;
+        }
+        
+        .found {
+            background-color: rgba(76, 201, 240, 0.1);
+            border-left: 4px solid var(--success);
+        }
+        
+        .not-found {
+            background-color: rgba(247, 37, 133, 0.1);
+            border-left: 4px solid var(--danger);
+        }
+        
+        .searching {
+            background-color: rgba(248, 150, 30, 0.1);
+            border-left: 4px solid var(--warning);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .loading-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            animation: loading 2s infinite;
+        }
+        
+        @keyframes loading {
+            0% { width: 0; left: 0 }
+            50% { width: 100%; left: 0 }
+            100% { width: 0; left: 100% }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px) }
+            to { opacity: 1; transform: translateY(0) }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <span>SmartLibrary AI</span>
+            </div>
+            <p class="tagline">Revolutionizing library management with computer vision and AI</p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">58+</div>
+                    <div class="stat-label">Books Detected</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Availability</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <section class="camera-section">
+                <h2 class="section-title">
+                    <i class="fas fa-camera"></i>
+                    <span>Live Detection</span>
+                </h2>
+                <div class="camera-placeholder">
+                    <div class="loading-bar"></div>
+                </div>
+            </section>
+            
+            <section class="control-section">
+                <h2 class="section-title">
+                    <i class="fas fa-search"></i>
+                    <span>Book Search</span>
+                </h2>
+                
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label for="bookQuery">Enter Book Title</label>
+                        <input type="text" id="bookQuery" name="book_query" placeholder="e.g. Introduction to Algorithms" required>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="btn-primary" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                            <span>Search</span>
+                        </button>
+                        <button type="button" class="btn-danger" id="stopBtn" disabled>
+                            <i class="fas fa-stop"></i>
+                            <span>Stop</span>
+                        </button>
+                    </div>
+                    
+                    <div class="result-container" id="resultContainer">
+                        <div class="result-content">
+                            <div class="result-title">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Ready to Search</span>
+                            </div>
+                            <div class="result-text">Enter a book title and click search to begin detection</div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Instant Detection</h3>
+                <p class="feature-desc">Our AI scans books in real-time with industry-leading speed</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="feature-title">Smart Recognition</h3>
+                <p class="feature-desc">Advanced algorithms that learn and improve over time</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3 class="feature-title">Precise Location</h3>
+                <p class="feature-desc">Pinpoints exact shelf location for quick retrieval</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 SmartLibrary AI. All rights reserved.</p>
+            <p>Powered by YOLOv5 and Tesseract OCR</p>
+            <p>Presented by - YASH JHA, PARAM KOTADIA & SHUBHAM RAIYANI</p>
+            <p>Sponserd by - TYT_DELIGHTS </p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const bookQuery = formData.get('book_query');
+            
+            // Update UI for searching state
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.className = 'result-container searching';
+            resultContainer.innerHTML = `
+                <div class="result-content">
+                    <div class="result-title">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Searching...</span>
+                    </div>
+                    <div class="result-text">Scanning shelves for "${bookQuery}"</div>
+                    <div class="loading-bar"></div>
+                </div>
+            `;
+            
+            document.getElementById('searchBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = false;
+            
+            // Simulate processing delay (replace with actual fetch in your implementation)
+            setTimeout(() => {
+                fetch('/start', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    // Poll for results
+                    const resultInterval = setInterval(() => {
+                        fetch('/get_result')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.result) {
+                                    clearInterval(resultInterval);
+                                    updateResultUI(data.result, bookQuery);
+                                    document.getElementById('searchBtn').disabled = false;
+                                    document.getElementById('stopBtn').disabled = true;
+                                }
+                            });
+                    }, 500);
+                });
+            }, 1000);
+        });
+        
+        document.getElementById('stopBtn').addEventListener('click', function() {
+            fetch('/stop', {
+                method: 'POST'
+            }).then(() => {
+                const resultContainer = document.getElementById('resultContainer');
+                resultContainer.className = 'result-container not-found';
+                resultContainer.innerHTML = `
+                    <div class="result-content">
+                        <div class="result-title">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Search Stopped</span>
+                        </div>
+                        <div class="result-text">Detection was manually stopped</div>
+                    </div>
+                `;
+                document.getElementById('searchBtn').disabled = false;
+                this.disabled = true;
+            });
+        });
+        
+        function updateResultUI(result, query) {
+            const resultContainer = document.getElementById('resultContainer');
+            
+            if (result.includes("✅")) {
+                resultContainer.className = 'result-container found';
+                resultContainer.innerHTML = `
+                    <div class="result-content">
+                        <div class="result-title">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Book Found!</span>
+                        </div>
+                        <div class="result-text">We found "${query}" in our library</div>
+                        <div class="result-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Shelf 1, Row 1, Column 1</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultContainer.className = 'result-container not-found';
+                resultContainer.innerHTML = `
+                    <div class="result-content">
+                        <div class="result-title">
+                            <i class="fas fa-times-circle"></i>
+                            <span>Book Not Found</span>
+                        </div>
+                        <div class="result-text">"${query}" was not found in our current scan</div>
+                        <div class="result-location">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Try checking the spelling or scanning a different angle</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
