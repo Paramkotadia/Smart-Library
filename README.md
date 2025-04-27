@@ -70,7 +70,7 @@ pip install numpy
 
 __Step 7: Run the Application:__ 
 
-Run the main Python script to start the application. The main script is typically named app.py. Use the following command (replace the filename if different):
+Run the main Python script to start the application. The main script is typically named app.py. Use the following command :
 
 python app.py
 
