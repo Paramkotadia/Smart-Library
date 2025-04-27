@@ -22,7 +22,7 @@ Clone the repository (https://github.com/Paramkotadia/Smart-Library.git) .
 
 Set up a Python virtual environment (recommended).
 
-Install the required packages (mainly flask).
+Install the required packages (pip install -r requirements.txt).
 
 Run the Flask app and visit http://127.0.0.1:5000/ on your browser!
 
